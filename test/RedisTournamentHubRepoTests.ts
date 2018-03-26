@@ -18,6 +18,7 @@ import repo from "../RedisTournamentHubRepo";
 
     @test public async shouldCreateUserIdWhenRegistering() {
 
+        await this.testRepo.removeUser("123456789abcdefg");
         const userToCreate = new User();
         userToCreate.email = "test@test.com";
         userToCreate.name = "Test User";
@@ -31,6 +32,7 @@ import repo from "../RedisTournamentHubRepo";
 
     @test public async shouldCreateUserAndLoginWithPasswordIfConfirmed() {
 
+        await this.testRepo.removeUser("123456789abcdefg");
         const userToCreate = new User();
         userToCreate.email = "test@test.com";
         userToCreate.name = "Test User";
@@ -41,11 +43,12 @@ import repo from "../RedisTournamentHubRepo";
         await this.testRepo.register(userToCreate, pwdToUse);
         const loggedIn = await this.testRepo.login("test@test.com", "testpassword");
 
-        expect(loggedIn).to.be.true;
+        expect(loggedIn.name).to.equal("Test User");
     }
 
     @test public async shouldCreateUserAndNotLoginWithPasswordIfNotConfirmed() {
 
+        await this.testRepo.removeUser("123456789abcdefg");
         const userToCreate = new User();
         userToCreate.email = "test@test.com";
         userToCreate.name = "Test User";
@@ -56,7 +59,7 @@ import repo from "../RedisTournamentHubRepo";
         await this.testRepo.register(userToCreate, pwdToUse);
         const loggedIn = await this.testRepo.login("test@test.com", "testpassword");
 
-        expect(loggedIn).to.be.false;
+        expect(loggedIn).to.be.null;
     }
 
     @test public async shouldSaveEventAndIndexByUser() {
