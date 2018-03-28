@@ -9,6 +9,12 @@ const app = express();
 // orchestrate dependencies here:
 const repo = new RedisTournamentHubRepo(uuid.v4)
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
+    next();
+});
+
 app.use("/auth", authController(repo));
 app.use("/tournament", tournamentController(repo));
 
