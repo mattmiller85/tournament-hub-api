@@ -99,6 +99,8 @@ import repo from "../RedisTournamentHubRepo";
                 team2Description: "Bad Guys",
                 team2Id: "34567",
                 winnerTeamId: "",
+                bracketGroup: 1,
+                round: 1
             });
 
         await this.testRepo.saveTournament(tourneyToSave, userId);
@@ -132,6 +134,8 @@ import repo from "../RedisTournamentHubRepo";
                 team2Description: "Bad Guys",
                 team2Id: "34567",
                 winnerTeamId: "",
+                bracketGroup: 1,
+                round: 1
             },
             {
                 gameDate: new Date(),
@@ -144,7 +148,80 @@ import repo from "../RedisTournamentHubRepo";
                 team2Description: "Bad Guys",
                 team2Id: "34567",
                 winnerTeamId: "34567",
-            });
+                bracketGroup: 1,
+                round: 1
+            },
+            {
+                gameDate: new Date(),
+                id: "12347",
+                location: "Gym 3",
+                number: 3,
+                progress: "finished",
+                team1Description: "Good Guys Again",
+                team1Id: "23456",
+                team2Description: "Guys",
+                team2Id: "34567",
+                winnerTeamId: "34567",
+                bracketGroup: 1,
+                round: 1
+            },
+            {
+                gameDate: new Date(),
+                id: "12348",
+                location: "Gym 4",
+                number: 4,
+                progress: "finished",
+                team1Description: "Good Guys Again",
+                team1Id: "23456",
+                team2Description: "Guys",
+                team2Id: "34567",
+                winnerTeamId: "34567",
+                bracketGroup: 1,
+                round: 1
+            },
+            {
+                gameDate: new Date(),
+                id: "12349",
+                location: "Gym 4",
+                number: 5,
+                progress: "not_started",
+                team1Description: "Winner Game 1",
+                team1Id: "",
+                team2Description: "Winner Game 2",
+                team2Id: "",
+                winnerTeamId: "",
+                bracketGroup: 1,
+                round: 2
+            },
+            {
+                gameDate: new Date(),
+                id: "12350",
+                location: "Gym 4",
+                number: 6,
+                progress: "not_started",
+                team1Description: "Winner Game 3",
+                team1Id: "",
+                team2Description: "Winner Game 4",
+                team2Id: "",
+                winnerTeamId: "",
+                bracketGroup: 1,
+                round: 2
+            },
+            {
+                gameDate: new Date(),
+                id: "12351",
+                location: "Gym 4",
+                number: 7,
+                progress: "not_started",
+                team1Description: "Winner Game 5",
+                team1Id: "",
+                team2Description: "Winner Game 6",
+                team2Id: "",
+                winnerTeamId: "",
+                bracketGroup: 1,
+                round: 3
+            }
+        );
 
         await this.testRepo.saveTournament(tourneyToSave, userId, "54321");
         const loadedTourneyById = await this.testRepo.getTournamentById("123456789abcdefg");

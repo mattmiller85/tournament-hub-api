@@ -22,14 +22,14 @@ export default (repo: ITournamentHubRepo) => {
             roles: [],
         }, req.body.password);
         if (!user) {
-            res.status(500).send("There was a problem registering the user.");
+            res.status(500).send({ auth: false, message: "There was a problem registering the user." });
             return;
         }
         const confirmUrl = `${req.body.confirmUrlBase}${user.id}`;
         const smtpTransport = nodemailer.createTransport({
             auth: {
-                pass: "load something here from env",
-                user: "this_too@gmail.com",
+                pass: process.env.TH_CONFIRM_PASS,
+                user: process.env.TH_CONFIRM_USER,
             },
             service: "Gmail",
         });
@@ -43,7 +43,7 @@ export default (repo: ITournamentHubRepo) => {
         };
         smtpTransport.sendMail(mailOptions, (error, response) => {
             if (error) {
-                res.status(500).send("There was a problem sending the confirmation email to the user.");
+                res.status(500).send({ auth: false, message: "There was a problem sending the confirmation email to the user." });
                 return;
             }
             smtpTransport.close();
@@ -59,7 +59,7 @@ export default (repo: ITournamentHubRepo) => {
             });
             res.status(200).send({ auth: true, token, user });
         } else {
-            res.status(500).send("There was a problem registering the user.");
+            res.status(500).send({ auth: false, message: "There was a problem logging in the user." });
         }
     });
 

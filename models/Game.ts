@@ -9,4 +9,6 @@ export default class Game {
     public location: string;
     public progress: string; // Not Started, In Progress, Finished
     public winnerTeamId: string;
+    public bracketGroup: number; // To indicate winners/losers or "region" or something
+    public round: number;
 }

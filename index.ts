@@ -18,4 +18,9 @@ app.use((req, res, next) => {
 app.use("/auth", authController(repo));
 app.use("/tournament", tournamentController(repo));
 
-app.listen(3000);
+const port = 3009;
+console.log(`Listening on port ${port}.`);
+console.log(`Confirm email: ${process.env.TH_CONFIRM_USER}.`);
+console.log(`Confirm pass: ${process.env.TH_CONFIRM_PASS ? "******" : "Not Set!"}.`);
+
+app.listen(3009);
