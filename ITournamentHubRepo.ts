@@ -4,6 +4,8 @@ import User from "./models/User";
 
 export interface ITournamentHubRepo {
 
+    idGenerator: () => string;
+
     findUserByEmail(email: string): Promise<User>;
     findUserById(id: string): Promise<User>;
     login(email: string, password: string): Promise<User>;
@@ -22,4 +24,5 @@ export interface ITournamentHubRepo {
     addTournamentToUser(tournamentId: string, userId: string): Promise<boolean>;
     removeTournamentForUser(tournamentId: string, userId: string): Promise<boolean>;
     saveTournament(tournament: Tournament, userId: string, eventId: string): Promise<Tournament>;
+    saveTournament(tournament: Tournament, userId: string): Promise<Tournament>;
 }

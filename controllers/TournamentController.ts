@@ -3,6 +3,8 @@ import * as express from "express";
 import config from "../config";
 import { ITournamentHubRepo } from "../ITournamentHubRepo";
 import verifyToken from "./VerifyToken";
+import Tournament from "../models/Tournament";
+import Game from "../models/Game";
 
 const router = express.Router();
 
@@ -34,6 +36,38 @@ export default (repo: ITournamentHubRepo) => {
     router.get("/:tournamentId/unfollow", verifyToken, async (req, res) => {
         const success = await repo.removeTournamentForUser(req.params.tournamentId, req.params.userId);
         res.status(200).send(success);
+    });
+
+    router.post("/", verifyToken, async (req, res) => {
+        const t = req.body as Tournament;
+        t.id = null
+        const savedTournament = await repo.saveTournament(t, req.params.userId, req.params.eventId);
+        res.status(200).send(savedTournament);
+    });
+
+    router.put("/:tournamentId", verifyToken, async (req, res) => {
+        const t = req.body as Tournament;
+        t.id = req.params.tournamentId;
+        const savedTournament = await repo.saveTournament(t, req.params.userId, req.params.eventId);
+        res.status(200).send(savedTournament);
+    });
+
+    router.post("/:tournamentId/game/add", verifyToken, async (req, res) => {
+        const g = req.body as Game;
+        g.id = repo.idGenerator();
+        const t = await repo.getTournamentById(req.params.tournamentId);
+        t.games.push(g);
+        const savedTournament = await repo.saveTournament(t, req.params.userId, req.params.eventId);
+        res.status(200).send(savedTournament);
+    });
+
+    router.put("/:tournamentId/game/save", verifyToken, async (req, res) => {
+        const g = req.body as Game;
+        const t = await repo.getTournamentById(req.params.tournamentId);
+        const currentGIndex = t.games.findIndex(cg => cg.id === g.id);
+        t.games.splice(currentGIndex, 1, g);
+        const savedTournament = await repo.saveTournament(t, req.params.userId, req.params.eventId);
+        res.status(200).send(savedTournament);
     });
 
     return router;

@@ -15,7 +15,7 @@ export default class RedisTournamentHubRepo implements ITournamentHubRepo {
     private smembersAsync: (key: string) => Promise<string[]>;
     private client: RedisClient;
 
-    constructor(private idGenerator: () => string) {
+    constructor(public idGenerator: () => string) {
         this.client = new RedisClient({
             db: cfg.redis.dbIndex,
         })
