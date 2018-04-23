@@ -8,9 +8,9 @@ import Game from "../models/Game";
 import Tournament from "../models/Tournament";
 import { TournamentType } from "../models/TournamentType";
 import User from "../models/User";
-import repo from "../RedisTournamentHubRepo";
+import repo from "../DynamoDBTournamentHubRepo";
 
-@suite class RedisTournamentHubRepoTests {
+@suite class DynamoDBTournamentHubRepoTests {
     private testRepo: repo;
     constructor() {
         this.testRepo = new repo(() => "123456789abcdefg");

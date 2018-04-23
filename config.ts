@@ -1,3 +1,7 @@
+import * as dotenv from "dotenv";
+
+dotenv.config();
+
 class DevConfig {
     public static loginUrl = "http://localhost:3000/auth/login/" ;
     public static tokenExpiresSeconds = 86400;
@@ -15,3 +19,11 @@ class DevConfig {
 }
 
 export default DevConfig;
+
+export const TH_CONFIRM_PASS = () => {
+    return process.env.TH_CONFIRM_PASS;
+}
+
+export const TH_CONFIRM_USER = () => {
+    return process.env.TH_CONFIRM_USER;
+}

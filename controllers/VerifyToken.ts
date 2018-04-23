@@ -4,11 +4,11 @@ import config from "../config";
 
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers["x-access-token"];
+  const token = req.headers["x-access-token"] as string;
   if (!token) {
     return res.status(403).send({ auth: false, message: "No token provided." });
   }
-  jwt.verify(token, config.jwtSecret, (err, decoded) => {
+  jwt.verify(token, config.jwtSecret, (err, decoded: { id: string }) => {
     if (err) {
         return res.status(500).send({ auth: false, message: "Failed to authenticate token." });
     }

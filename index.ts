@@ -4,6 +4,7 @@ import * as uuid from "uuid";
 import authController from "./controllers/AuthController";
 import tournamentController from "./controllers/TournamentController";
 import RedisTournamentHubRepo from "./RedisTournamentHubRepo";
+import { TournamentHubService } from "./TournamentHubService";
 const app = express();
 
 // orchestrate dependencies here:
@@ -16,8 +17,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/auth", authController(repo));
-app.use("/tournament", tournamentController(repo));
+app.use("/auth", authController(new TournamentHubService(repo)));
+app.use("/tournament", tournamentController(new TournamentHubService(repo)));
 
 const port = 3009;
 console.log(`Listening on port ${port}.`);

@@ -1,5 +1,5 @@
-export default class Event {
-    public id: string;
-    public name: string;
-    public eventDate: Date
+export default interface Event {
+    id?: string;
+    name: string;
+    eventDate: Date
 }

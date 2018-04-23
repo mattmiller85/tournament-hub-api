@@ -1,3 +1,12 @@
 node_modules/**
 **/*.js
 **/*.js.map
+.env
+
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Webpack directories
+.webpack

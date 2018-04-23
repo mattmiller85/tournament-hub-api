@@ -1,0 +1,5 @@
+POST https://fxppwbhwbd.execute-api.us-east-2.amazonaws.com/dev/auth/register HTTP/1.1
+content-type: application/json
+X-Amz-Date: 20180418T151922Z
+Authorization: AWS4-HMAC-SHA256 Credential=AKIAIQ3KCWYXBFBLL2LQ/20180418/us-east-1/execute-api/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=80c918ca85bb28bfa2f53b89c9a3db8531faf41d006ddc76dae3cfb8fe0f88a4
+
