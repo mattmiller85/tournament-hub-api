@@ -12,6 +12,8 @@ export interface LoginResponse {
 export interface ITournamentHubService {
     envTest(): Promise<string>;
 
+    verifyToken(token: string): Promise<{ status: number, auth: boolean, message: string, userId: string }>;
+
     // auth
     registerUser(userInfo: { email: string, name: string, password: string, confirmUrlBase: string}): Promise<{ status: number, response: any }>;
     login(userInfo: { email: string, password: string}): Promise<{ status: number, response: LoginResponse }>;

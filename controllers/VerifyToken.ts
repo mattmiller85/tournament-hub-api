@@ -4,7 +4,7 @@ import config from "../config";
 
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers["x-access-token"] as string;
+  const token = req.headers["Authorization"] as string;
   if (!token) {
     return res.status(403).send({ auth: false, message: "No token provided." });
   }

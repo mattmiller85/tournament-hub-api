@@ -29,13 +29,13 @@ export default (service: ITournamentHubService) => {
         res.status(status).send(response);
     });
 
-    router.get("/:tournamentId/follow", verifyToken, async (req, res) => {
-        const { status, response } = await service.addTournamentToUser(req.params.tournamentId, req.params.userId);
+    router.post("/:tournamentId/follow", verifyToken, async (req, res) => {
+        const { status, response } = await service.addTournamentToUser(req.params.tournamentId, req.body.userId);
         res.status(status).send(response);
     });
 
-    router.get("/:tournamentId/unfollow", verifyToken, async (req, res) => {
-        const { status, response } = await service.removeTournamentForUser(req.params.tournamentId, req.params.userId);
+    router.post("/:tournamentId/unfollow", verifyToken, async (req, res) => {
+        const { status, response } = await service.removeTournamentForUser(req.params.tournamentId, req.body.userId);
         res.status(status).send(response);
     });
 

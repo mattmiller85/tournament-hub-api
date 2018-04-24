@@ -21,6 +21,24 @@ export class TournamentHubService implements ITournamentHubService {
         return Promise.resolve(process.env.test_env_var);
     }
 
+    async verifyToken(token: string): Promise<{ status: number, auth: boolean, message: string, userId: string }> {
+        //const token = req.headers["Authorization"] as string;
+        if (!token) {
+            return Promise.resolve({ status: 401, auth: false, message: "No token provided.", userId: "" });
+        }
+        
+        return new Promise<{ status: number, auth: boolean, message: string, userId: string }>((resolve, reject) => {
+
+            jwt.verify(token, config.jwtSecret, (err, decoded: { id: string }) => {
+                if (err) {
+                    return resolve({ status: 401, auth: false, message: "Failed to authenticate token.", userId: "" });
+                }
+                return resolve({ status: 200, auth: true, message: "", userId: decoded.id });
+            });
+            
+        });
+    }
+
     async login(loginInfo: { email: string, password: string }):
         Promise<ServiceResponse<LoginResponse>> {
 
@@ -30,7 +48,7 @@ export class TournamentHubService implements ITournamentHubService {
         if (!user) {
 
             return Promise.resolve({
-                status: 500, response: {
+                status: 200, response: {
                     auth: false, token: null, user: null, message: "There was a problem logging in the user."
                 }
             });

@@ -16,12 +16,76 @@ provider:
     TH_CONFIRM_USER: ${file(./config.js):TH_CONFIRM_USER}
 
 functions:
+
   auth-register:
     handler: lambda-handler-auth.register
     events:
       - http:
           method: post
           path: auth/register
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+  
+  auth-login:
+    handler: lambda-handler-auth.login
+    events:
+      - http:
+          method: post
+          path: auth/login
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+    allowCredentials: false  
+
+  auth-confirm:
+    handler: lambda-handler-auth.confirm
+    events:
+      - http:
+          method: get
+          path: auth/confirm/{userId}
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+          request: 
+            parameters:
+              paths:
+                id: true
+
+  auth-me:
+    handler: lambda-handler-auth.me
+    events:
+      - http:
+          method: get
+          path: auth/me
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+    allowCredentials: false
 
   auth-testEnv:
     handler: lambda-handler-auth.testEnv
@@ -29,3 +93,167 @@ functions:
       - http:
           method: post
           path: auth/testEnv
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+  
+
+
+  tournament-getAll:
+    handler: lambda-handler-tournament.getAll
+    events:
+      - http:
+          method: get
+          path: tournament
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+  tournament-getById:
+    handler: lambda-handler-tournament.getById
+    events:
+      - http:
+          method: get
+          path: tournament/{tournamentId}
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+          request: 
+            parameters:
+              paths:
+                tournamentId: true
+
+  tournament-follow:
+    handler: lambda-handler-tournament.follow
+    events:
+      - http:
+          method: post
+          path: tournament/{tournamentId}/follow
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+          request: 
+            parameters:
+              paths:
+                tournamentId: true
+
+  tournament-unfollow:
+    handler: lambda-handler-tournament.unfollow
+    events:
+      - http:
+          method: post
+          path: tournament/{tournamentId}/unfollow
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+          request: 
+            parameters:
+              paths:
+                tournamentId: true
+
+  tournament-add:
+    handler: lambda-handler-tournament.add
+    events:
+      - http:
+          method: post
+          path: tournament
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+
+  tournament-update:
+    handler: lambda-handler-tournament.update
+    events:
+      - http:
+          method: put
+          path: tournament/{tournamentId}
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+          request: 
+            parameters:
+              paths:
+                tournamentId: true
+
+  tournament-addGame:
+    handler: lambda-handler-tournament.addGame
+    events:
+      - http:
+          method: post
+          path: tournament/{tournamentId}/game/add
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+          request: 
+            parameters:
+              paths:
+                tournamentId: true
+
+  tournament-updateGame:
+    handler: lambda-handler-tournament.saveGame
+    events:
+      - http:
+          method: put
+          path: tournament/{tournamentId}/game/save
+          cors:
+            origins:
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+          request: 
+            parameters:
+              paths:
+                tournamentId: true

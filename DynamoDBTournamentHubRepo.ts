@@ -22,9 +22,8 @@ export default class DynamoDBTournamentHubRepo implements ITournamentHubRepo {
         this.client = new DynamoDB.DocumentClient({ 
             region: "us-east-2",
             convertEmptyValues: true,
-            accessKeyId: "somethingforlocal", 
-            secretAccessKey: "fake_for_local_here",
-            endpoint: "http://localhost:8000"
+            accessKeyId: "<removed>", 
+            secretAccessKey: "<removed>"
         });
     }
     public async findUserByEmail(email: string): Promise<User> {
